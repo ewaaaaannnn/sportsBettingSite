@@ -1,4 +1,6 @@
 let bank = 100
+let team1Skills = 0
+let team2Skills = 0
 
 const players = [
   { teamNumber: 1, emoji: '🏃‍♂️', skill: 10, name: "D'Marcus Williums" },
@@ -36,13 +38,96 @@ function changeTeams() {
     player.teamNumber = teamNumbers[randomTeam]
     console.log('Team Change')
   }
+  team1Skills -= team1Skills
+  team2Skills -= team2Skills
   drawTeam1()
   drawTeam2()
 }
 
 
+function addTeam1() {
+  for (let i = 0; i < players.length; i++) {
+    let player = players[i];
+    if (player.teamNumber == 1) {
+      team1Skills += player.skill
+    }
+  }
+  console.log(team1Skills)
+}
 
 
+
+function addTeam2() {
+  for (let i = 0; i < players.length; i++) {
+    let player = players[i];
+    if (player.teamNumber == 2) {
+      team2Skills += player.skill
+    }
+  }
+  console.log(team2Skills)
+}
+
+
+
+function bet5Team1() {
+  addTeam1()
+  addTeam2()
+  if (team1Skills > team2Skills) {
+    bank += 5
+
+  }
+  else {
+    bank -= 5
+  }
+  drawBank()
+  changeTeams()
+}
+
+
+function bet10Team1() {
+  addTeam1()
+  addTeam2()
+  if (team1Skills > team2Skills) {
+    bank += 10
+
+  }
+  else {
+    bank -= 10
+  }
+  drawBank()
+  changeTeams()
+}
+
+
+function bet5Team2() {
+  addTeam1()
+  addTeam2()
+  if (team2Skills > team1Skills) {
+    bank += 5
+
+  }
+  else {
+    bank -= 5
+  }
+  drawBank()
+  changeTeams()
+}
+
+
+
+function bet10Team2() {
+  addTeam1()
+  addTeam2()
+  if (team2Skills > team1Skills) {
+    bank += 10
+
+  }
+  else {
+    bank -= 10
+  }
+  drawBank()
+  changeTeams()
+}
 
 
 
@@ -73,3 +158,10 @@ function drawTeam2() {
 }
 
 drawTeam2()
+
+
+function drawBank() {
+  const bankElm = document.getElementById('bank-total')
+  bankElm.innerHTML = bank
+}
+drawBank()
